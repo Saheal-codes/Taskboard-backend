@@ -1,3 +1,4 @@
+const serverless = require("serverless-http");
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -16,9 +17,7 @@ app.use("*", (req, res) => {
 });
 app.use(morgan("tiny"));
 app.get("/health", (req, res) => res.send("Server Running.."));
-app.listen(80, () => {
-  console.log("Server is running on port 80");
-});
+
 mongoose
   .connect(
     "mongodb+srv://saheal_codes:V_!bmDx5dBNA9.6@seriesn.qakgq.mongodb.net/taskboarddatabase"
@@ -32,3 +31,4 @@ mongoose
   });
 
 module.exports = app;
+module.exports.handler = serverless(app);
